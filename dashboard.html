@@ -19,7 +19,7 @@ body{margin:0;background:#eef1f5;color:var(--txt);}
 .wrap{max-width:1120px;margin:0 auto;padding:22px 20px 60px;}
 .metaline{font-size:12.5px;color:var(--mut);background:var(--cpet-xl);border:1px solid var(--cpet-l);border-left:4px solid var(--cpet);border-radius:6px;padding:8px 12px;margin-bottom:16px;line-height:1.6;}
 .metaline b{color:var(--cpet-d);}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px;}
 .kpi{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:16px;text-align:center;border-top:3px solid var(--cpet);}
 .kpi-n{font-size:26px;font-weight:700;color:var(--cpet-d);}
 .kpi-l{font-size:12px;color:var(--mut);margin-top:3px;}
@@ -57,6 +57,15 @@ tr:hover td{background:#f7f9fc;}
 .flag.hi{background:#fdeee0;color:#b45f06;}
 .flag.red{background:#e8f0fe;color:#1a5fb4;}
 .flag.esp{background:var(--cpet-l);color:var(--cpet-m);}
+.legend{line-height:1.8;font-size:13px;}
+.legend b{color:var(--cpet-d);}
+.scard-pairs{display:flex;gap:6px;margin-bottom:10px;font-size:11px;}
+.pp{flex:1;text-align:center;border-radius:8px;padding:4px 6px;font-weight:600;}
+.pp.tab{background:#eef1f5;color:var(--cpet-m);}
+.pp.notab{background:#fdeeee;color:#b02a2a;}
+table.matrix th,table.matrix td{padding:6px 8px;font-size:12px;}
+td.heat{font-weight:600;}
+.matrix-note{font-size:11.5px;color:var(--mut);margin-top:8px;}
 footer.foot{max-width:1120px;margin:0 auto;padding:0 20px 40px;font-size:11.5px;color:var(--mut);line-height:1.6;}
 footer.foot b{color:var(--cpet-d);}
 </style>
@@ -79,8 +88,27 @@ footer.foot b{color:var(--cpet-d);}
   <div class="kpi"><div class="kpi-n">1.013</div><div class="kpi-l">actividades NAES</div></div>
   <div class="kpi"><div class="kpi-n">24</div><div class="kpi-l">jurisdicciones</div></div>
   <div class="kpi"><div class="kpi-n">5</div><div class="kpi-l">sectores</div></div>
-  <div class="kpi"><div class="kpi-n">93.8%</div><div class="kpi-l">pares tabulados</div></div>
+  <div class="kpi"><div class="kpi-n">22.816</div><div class="kpi-l">pares tabulados · 93,8%</div></div>
+  <div class="kpi"><div class="kpi-n">1.496</div><div class="kpi-l">pares no tabulados · 6,2%</div></div>
+  <div class="kpi"><div class="kpi-n">310</div><div class="kpi-l">actividades en las 24</div></div>
 </div>
+
+  <div class="card">
+    <h2>¿Cómo leer este dashboard?</h2>
+    <div class="desc legend">
+      <b>Par</b> = combinación actividad × jurisdicción (una celda de la matriz de 1.013 × 24 = 24.312).<br>
+      <b>Pares tabulados</b> = la provincia tiene una alícuota específica para esa actividad en su ley.<br>
+      <b>Pares no tabulados</b> = la actividad no figura en la ley de esa provincia → aplica la <b>tasa general (residual)</b>, si la provincia la publica.<br>
+      <b>Alícuota específica</b> = la que corresponde a esa actividad en particular (única o rango mín–máx).<br>
+      <b>Tasa general (residual)</b> = la que la provincia aplica a las actividades sin alícuota propia.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Cobertura de actividades por jurisdicción</h2>
+    <div class="desc">Cuántas jurisdicciones tienen alícuota específica para cada actividad. «24/24» = tabulada en las 24; las demás aplican la tasa general donde no están tabuladas.</div>
+    <div class="bar-row"><div class="bar-lbl">24 jurisdicciones</div><div class="bar-track"><div class="bar-fill" style="width:97.8%;background:var(--cpet)"></div></div><div class="bar-val">310</div></div><div class="bar-row"><div class="bar-lbl">23 jurisdicciones</div><div class="bar-track"><div class="bar-fill" style="width:70.3%;background:var(--cpet)"></div></div><div class="bar-val">223</div></div><div class="bar-row"><div class="bar-lbl">22 jurisdicciones</div><div class="bar-track"><div class="bar-fill" style="width:100.0%;background:var(--cpet)"></div></div><div class="bar-val">317</div></div><div class="bar-row"><div class="bar-lbl">21 jurisdicciones</div><div class="bar-track"><div class="bar-fill" style="width:36.0%;background:var(--cpet)"></div></div><div class="bar-val">114</div></div><div class="bar-row"><div class="bar-lbl">20 o menos</div><div class="bar-track"><div class="bar-fill" style="width:15.5%;background:var(--cpet)"></div></div><div class="bar-val">49</div></div>
+  </div>
 
   <div class="card">
     <h2>Alícuota específica media por sector</h2>
@@ -103,7 +131,8 @@ footer.foot b{color:var(--cpet-d);}
     <div class="desc">Medidas de la alícuota específica (%). «Exenta» = alícuota 0; «Alta» = superior a 5%; «Reducida»/«Especial» = según régimen declarado en la norma provincial.</div>
     <div class="sgrid"><div class="scard" style="border-top-color:#2e7d32">
       <div class="scard-h"><span class="dot" style="background:#2e7d32"></span>Primario</div>
-      <div class="scard-meta">120 actividades · 2.818 pares</div>
+      <div class="scard-meta">120 actividades · 24/24: 64 · cobertura 97,8%</div>
+      <div class="scard-pairs"><span class="pp tab">tabulados 2.818</span><span class="pp notab">no tabulados 62</span></div>
       <div class="scard-grid">
         <div class="smetric"><div class="sm-n">0,75%</div><div class="sm-l">alícuota mediana</div></div>
         <div class="smetric"><div class="sm-n">1,509%</div><div class="sm-l">alícuota media</div></div>
@@ -111,14 +140,15 @@ footer.foot b{color:var(--cpet-d);}
         <div class="smetric"><div class="sm-n">0–6,25%</div><div class="sm-l">mín–máx</div></div>
       </div>
       <div class="scard-flags">
-        <span class="flag ex">Exenta 15.4%</span>
-        <span class="flag hi">Alta (&gt;5%) 0.9%</span>
-        <span class="flag red">Reducida 4.3%</span>
-        <span class="flag esp">Especial 8.4%</span>
+        <span class="flag ex">Exenta 15,4%</span>
+        <span class="flag hi">Alta (&gt;5%) 0,9%</span>
+        <span class="flag red">Reducida 4,3%</span>
+        <span class="flag esp">Especial 8,4%</span>
       </div>
     </div><div class="scard" style="border-top-color:#1565c0">
       <div class="scard-h"><span class="dot" style="background:#1565c0"></span>Industrial</div>
-      <div class="scard-meta">313 actividades · 7.390 pares</div>
+      <div class="scard-meta">313 actividades · 24/24: 212 · cobertura 98,4%</div>
+      <div class="scard-pairs"><span class="pp tab">tabulados 7.390</span><span class="pp notab">no tabulados 122</span></div>
       <div class="scard-grid">
         <div class="smetric"><div class="sm-n">1,875%</div><div class="sm-l">alícuota mediana</div></div>
         <div class="smetric"><div class="sm-n">2,354%</div><div class="sm-l">alícuota media</div></div>
@@ -126,14 +156,15 @@ footer.foot b{color:var(--cpet-d);}
         <div class="smetric"><div class="sm-n">0–9%</div><div class="sm-l">mín–máx</div></div>
       </div>
       <div class="scard-flags">
-        <span class="flag ex">Exenta 3.7%</span>
-        <span class="flag hi">Alta (&gt;5%) 0.6%</span>
-        <span class="flag red">Reducida 7.9%</span>
-        <span class="flag esp">Especial 8.7%</span>
+        <span class="flag ex">Exenta 3,7%</span>
+        <span class="flag hi">Alta (&gt;5%) 0,6%</span>
+        <span class="flag red">Reducida 7,9%</span>
+        <span class="flag esp">Especial 8,7%</span>
       </div>
     </div><div class="scard" style="border-top-color:#e65100">
       <div class="scard-h"><span class="dot" style="background:#e65100"></span>Comercial</div>
-      <div class="scard-meta">240 actividades · 5.279 pares</div>
+      <div class="scard-meta">240 actividades · 24/24: 6 · cobertura 91,6%</div>
+      <div class="scard-pairs"><span class="pp tab">tabulados 5.279</span><span class="pp notab">no tabulados 481</span></div>
       <div class="scard-grid">
         <div class="smetric"><div class="sm-n">5%</div><div class="sm-l">alícuota mediana</div></div>
         <div class="smetric"><div class="sm-n">4,565%</div><div class="sm-l">alícuota media</div></div>
@@ -141,14 +172,15 @@ footer.foot b{color:var(--cpet-d);}
         <div class="smetric"><div class="sm-n">0–21,75%</div><div class="sm-l">mín–máx</div></div>
       </div>
       <div class="scard-flags">
-        <span class="flag ex">Exenta 1.1%</span>
-        <span class="flag hi">Alta (&gt;5%) 15.4%</span>
-        <span class="flag red">Reducida 12.7%</span>
-        <span class="flag esp">Especial 13.1%</span>
+        <span class="flag ex">Exenta 1,1%</span>
+        <span class="flag hi">Alta (&gt;5%) 15,4%</span>
+        <span class="flag red">Reducida 12,7%</span>
+        <span class="flag esp">Especial 13,1%</span>
       </div>
     </div><div class="scard" style="border-top-color:#6a1b9a">
       <div class="scard-h"><span class="dot" style="background:#6a1b9a"></span>Intermediación</div>
-      <div class="scard-meta">45 actividades · 977 pares</div>
+      <div class="scard-meta">45 actividades · 24/24: 9 · cobertura 90,5%</div>
+      <div class="scard-pairs"><span class="pp tab">tabulados 977</span><span class="pp notab">no tabulados 103</span></div>
       <div class="scard-grid">
         <div class="smetric"><div class="sm-n">7%</div><div class="sm-l">alícuota mediana</div></div>
         <div class="smetric"><div class="sm-n">6,77%</div><div class="sm-l">alícuota media</div></div>
@@ -156,14 +188,15 @@ footer.foot b{color:var(--cpet-d);}
         <div class="smetric"><div class="sm-n">0–19,5%</div><div class="sm-l">mín–máx</div></div>
       </div>
       <div class="scard-flags">
-        <span class="flag ex">Exenta 0.3%</span>
-        <span class="flag hi">Alta (&gt;5%) 75.2%</span>
-        <span class="flag red">Reducida 5.6%</span>
-        <span class="flag esp">Especial 8.2%</span>
+        <span class="flag ex">Exenta 0,3%</span>
+        <span class="flag hi">Alta (&gt;5%) 75,2%</span>
+        <span class="flag red">Reducida 5,6%</span>
+        <span class="flag esp">Especial 8,2%</span>
       </div>
     </div><div class="scard" style="border-top-color:#00838f">
       <div class="scard-h"><span class="dot" style="background:#00838f"></span>Servicios</div>
-      <div class="scard-meta">295 actividades · 6.352 pares</div>
+      <div class="scard-meta">295 actividades · 24/24: 19 · cobertura 89,7%</div>
+      <div class="scard-pairs"><span class="pp tab">tabulados 6.352</span><span class="pp notab">no tabulados 728</span></div>
       <div class="scard-grid">
         <div class="smetric"><div class="sm-n">4%</div><div class="sm-l">alícuota mediana</div></div>
         <div class="smetric"><div class="sm-n">3,982%</div><div class="sm-l">alícuota media</div></div>
@@ -171,12 +204,22 @@ footer.foot b{color:var(--cpet-d);}
         <div class="smetric"><div class="sm-n">0–25%</div><div class="sm-l">mín–máx</div></div>
       </div>
       <div class="scard-flags">
-        <span class="flag ex">Exenta 1.6%</span>
-        <span class="flag hi">Alta (&gt;5%) 10.8%</span>
-        <span class="flag red">Reducida 11.9%</span>
-        <span class="flag esp">Especial 11.5%</span>
+        <span class="flag ex">Exenta 1,6%</span>
+        <span class="flag hi">Alta (&gt;5%) 10,8%</span>
+        <span class="flag red">Reducida 11,9%</span>
+        <span class="flag esp">Especial 11,5%</span>
       </div>
     </div></div>
+  </div>
+
+  <div class="card">
+    <h2>Matriz sector × jurisdicción</h2>
+    <div class="desc">Alícuota específica (mín–máx) por sector y jurisdicción. Celdas más oscuras = alícuota máxima más alta. «—» = sin actividades tabuladas en ese sector. La columna «Residual» es la tasa general provincial.</div>
+    <table class="matrix">
+      <thead><tr><th>Jurisdicción</th><th class="num">Primario</th><th class="num">Industrial</th><th class="num">Comercial</th><th class="num">Intermediación</th><th class="num">Servicios</th><th class="num">Residual</th></tr></thead>
+      <tbody><tr><td><b>Buenos Aires</b></td><td class="num heat" style="background:rgb(250,248,252);color:#241a30;">0,75</td><td class="num heat" style="background:rgb(197,180,218);color:#241a30;">0,1–8</td><td class="num heat" style="background:rgb(197,180,218);color:#241a30;">0–8</td><td class="num heat" style="background:rgb(190,170,214);color:#241a30;">4,5–9</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">0,75–15</td><td class="num">—</td></tr><tr><td><b>CABA</b></td><td class="num heat" style="background:rgb(248,246,250);color:#241a30;">0–1</td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">0,5–5</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">0,48–15</td><td class="num heat" style="background:rgb(197,180,218);color:#241a30;">5,5–8</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">0,75–15</td><td class="num">3</td></tr><tr><td><b>Catamarca</b></td><td class="num heat" style="background:rgb(220,210,233);color:#241a30;">0–4,8</td><td class="num heat" style="background:rgb(197,180,218);color:#241a30;">0–8</td><td class="num heat" style="background:rgb(98,51,155);color:#ffffff;">0–21,75</td><td class="num heat" style="background:rgb(190,170,214);color:#241a30;">0–9</td><td class="num heat" style="background:rgb(139,105,181);color:#ffffff;">0–16</td><td class="num">3</td></tr><tr><td><b>Chaco</b></td><td class="num heat" style="background:rgb(234,228,242);color:#241a30;">0,5–2,9</td><td class="num heat" style="background:rgb(234,228,242);color:#241a30;">0–2,9</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">0–15</td><td class="num heat" style="background:rgb(183,161,209);color:#241a30;">2,9–10</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">0–15</td><td class="num">2,9</td></tr><tr><td><b>Chubut</b></td><td class="num heat" style="background:rgb(226,217,237);color:#241a30;">0,75–4</td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">1–5</td><td class="num heat" style="background:rgb(201,184,220);color:#241a30;">3–7,5</td><td class="num heat" style="background:rgb(190,170,214);color:#241a30;">7,5–9</td><td class="num heat" style="background:rgb(143,109,184);color:#ffffff;">2,5–15,5</td><td class="num">—</td></tr><tr><td><b>Córdoba</b></td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">0,25–5</td><td class="num heat" style="background:rgb(190,170,214);color:#241a30;">1,2–9</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">0,5–15</td><td class="num heat" style="background:rgb(204,189,223);color:#241a30;">3–7</td><td class="num heat" style="background:rgb(168,142,200);color:#ffffff;">1,2–12</td><td class="num">4,75</td></tr><tr><td><b>Corrientes</b></td><td class="num heat" style="background:rgb(234,228,242);color:#241a30;">2,9</td><td class="num heat" style="background:rgb(221,211,233);color:#241a30;">1–4,7</td><td class="num heat" style="background:rgb(221,211,233);color:#241a30;">1–4,7</td><td class="num heat" style="background:rgb(204,189,223);color:#241a30;">2,9–7</td><td class="num heat" style="background:rgb(172,147,202);color:#ffffff;">2–11,5</td><td class="num">2,9</td></tr><tr><td><b>Entre Ríos</b></td><td class="num heat" style="background:rgb(233,227,241);color:#241a30;">0,75–3</td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">0–5</td><td class="num heat" style="background:rgb(164,138,198);color:#ffffff;">0–12,5</td><td class="num heat" style="background:rgb(190,170,214);color:#241a30;">4,75–9</td><td class="num heat" style="background:rgb(190,170,214);color:#241a30;">0–9</td><td class="num">3,5</td></tr><tr><td><b>Formosa</b></td><td class="num heat" style="background:rgb(250,248,252);color:#241a30;">0,75</td><td class="num heat" style="background:rgb(237,232,244);color:#241a30;">1,5–2,5</td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">0–5</td><td class="num heat" style="background:rgb(204,189,223);color:#241a30;">4,1–7</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">0–15</td><td class="num">3</td></tr><tr><td><b>Jujuy</b></td><td class="num heat" style="background:rgb(212,199,227);color:#241a30;">0,75–6</td><td class="num heat" style="background:rgb(212,199,227);color:#241a30;">0–6</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">0–15</td><td class="num heat" style="background:rgb(197,180,218);color:#241a30;">5–8</td><td class="num heat" style="background:rgb(208,194,225);color:#241a30;">0–6,5</td><td class="num">3,5</td></tr><tr><td><b>La Pampa</b></td><td class="num heat" style="background:rgb(227,218,237);color:#241a30;">0,65–3,9</td><td class="num heat" style="background:rgb(227,218,237);color:#241a30;">2–3,9</td><td class="num heat" style="background:rgb(216,205,230);color:#241a30;">1,95–5,33</td><td class="num heat" style="background:rgb(114,72,165);color:#ffffff;">3,9–19,5</td><td class="num heat" style="background:rgb(114,72,165);color:#ffffff;">3–19,5</td><td class="num">3</td></tr><tr><td><b>La Rioja</b></td><td class="num heat" style="background:rgb(210,196,226);color:#241a30;">0,9375–6,25</td><td class="num heat" style="background:rgb(210,196,226);color:#241a30;">0–6,25</td><td class="num heat" style="background:rgb(119,79,169);color:#ffffff;">0–18,75</td><td class="num heat" style="background:rgb(174,149,203);color:#241a30;">6,25–11,25</td><td class="num heat" style="background:rgb(192,173,215);color:#241a30;">0–8,75</td><td class="num">3</td></tr><tr><td><b>Mendoza</b></td><td class="num heat" style="background:rgb(224,215,235);color:#241a30;">0,75–4,25</td><td class="num heat" style="background:rgb(208,194,225);color:#241a30;">0,5–6,5</td><td class="num heat" style="background:rgb(190,170,214);color:#241a30;">2,5–9</td><td class="num heat" style="background:rgb(201,184,220);color:#241a30;">4,75–7,5</td><td class="num heat" style="background:rgb(110,67,163);color:#ffffff;">1–20</td><td class="num">—</td></tr><tr><td><b>Misiones</b></td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">0–5</td><td class="num heat" style="background:rgb(197,180,218);color:#241a30;">0–8</td><td class="num heat" style="background:rgb(168,142,200);color:#ffffff;">0–12</td><td class="num heat" style="background:rgb(197,180,218);color:#241a30;">4,5–8</td><td class="num heat" style="background:rgb(139,105,181);color:#ffffff;">2–16</td><td class="num">3,5</td></tr><tr><td><b>Neuquén</b></td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">0–5</td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">0–5</td><td class="num heat" style="background:rgb(215,203,230);color:#241a30;">0–5,5</td><td class="num heat" style="background:rgb(190,170,214);color:#241a30;">0–9</td><td class="num heat" style="background:rgb(195,177,217);color:#241a30;">0–8,25</td><td class="num">3</td></tr><tr><td><b>Río Negro</b></td><td class="num heat" style="background:rgb(233,227,241);color:#241a30;">0–3</td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">1–5</td><td class="num heat" style="background:rgb(183,161,209);color:#241a30;">0–10</td><td class="num heat" style="background:rgb(190,170,214);color:#241a30;">4,5–9</td><td class="num heat" style="background:rgb(208,194,225);color:#241a30;">0–6,5</td><td class="num">5</td></tr><tr><td><b>Salta</b></td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">2,5–5</td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">2–5</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">3,6–15</td><td class="num heat" style="background:rgb(197,180,218);color:#241a30;">4,75–8</td><td class="num heat" style="background:rgb(74,20,140);color:#ffffff;">0–25</td><td class="num">3,6</td></tr><tr><td><b>San Juan</b></td><td class="num heat" style="background:rgb(233,227,241);color:#241a30;">0,75–3</td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">1–5</td><td class="num heat" style="background:rgb(164,138,198);color:#ffffff;">3–12,5</td><td class="num heat" style="background:rgb(208,194,225);color:#241a30;">3–6,5</td><td class="num heat" style="background:rgb(183,161,209);color:#241a30;">0,83–10</td><td class="num">3</td></tr><tr><td><b>San Luis</b></td><td class="num heat" style="background:rgb(220,209,232);color:#241a30;">1,2–4,9</td><td class="num heat" style="background:rgb(204,189,223);color:#241a30;">1,2–7</td><td class="num heat" style="background:rgb(183,161,209);color:#241a30;">0–10</td><td class="num heat" style="background:rgb(208,194,225);color:#241a30;">4,2–6,5</td><td class="num heat" style="background:rgb(179,156,207);color:#241a30;">1,8–10,5</td><td class="num">4,2</td></tr><tr><td><b>Santa Cruz</b></td><td class="num heat" style="background:rgb(233,227,241);color:#241a30;">0,75–3</td><td class="num heat" style="background:rgb(212,199,227);color:#241a30;">1,5–6</td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">3–5</td><td class="num heat" style="background:rgb(197,180,218);color:#241a30;">5–8</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">0–15</td><td class="num">3</td></tr><tr><td><b>Santa Fe</b></td><td class="num heat" style="background:rgb(248,246,250);color:#241a30;">0,75–1</td><td class="num heat" style="background:rgb(228,220,238);color:#241a30;">1,5–3,75</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">0,45–15</td><td class="num heat" style="background:rgb(190,170,214);color:#241a30;">5–9</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">2–15</td><td class="num">4,5</td></tr><tr><td><b>Sgo. del Estero</b></td><td class="num heat" style="background:rgb(233,227,241);color:#241a30;">0,75–3</td><td class="num heat" style="background:rgb(233,227,241);color:#241a30;">1,5–3</td><td class="num heat" style="background:rgb(183,161,209);color:#241a30;">2–10</td><td class="num heat" style="background:rgb(204,189,223);color:#241a30;">1,5–7</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">2–15</td><td class="num">3</td></tr><tr><td><b>T. del Fuego</b></td><td class="num heat" style="background:rgb(230,222,239);color:#241a30;">0,25–3,5</td><td class="num heat" style="background:rgb(230,222,239);color:#241a30;">0–3,5</td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">2–5</td><td class="num heat" style="background:rgb(233,227,241);color:#241a30;">0,25–3</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">0,25–15</td><td class="num">3</td></tr><tr><td><b>Tucumán</b></td><td class="num heat" style="background:rgb(219,208,232);color:#241a30;">5</td><td class="num heat" style="background:rgb(208,194,225);color:#241a30;">1,5–6,5</td><td class="num heat" style="background:rgb(146,114,186);color:#ffffff;">1,5–15</td><td class="num heat" style="background:rgb(190,170,214);color:#241a30;">2,5–9</td><td class="num heat" style="background:rgb(183,161,209);color:#241a30;">1,5–10</td><td class="num">—</td></tr></tbody>
+    </table>
+    <div class="matrix-note">Valores en % (alícuota específica). Las provincias sin tasa general publicada figuran con «—» en «Residual».</div>
   </div>
 
   <div class="card">
